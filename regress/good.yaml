@@ -1,0 +1,11 @@
+DEFAULT:
+  classes: []
+
+classes_only:
+  classes: [ 'classname' ]
+
+environment_only:
+  environment: environment
+
+"^xyzzy$":
+ environment: xyzzy
