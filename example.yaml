@@ -1,0 +1,14 @@
+# example YAML file for https://github.com/IPnett/puppet-yaml-enc
+
+DEFAULT:
+  classes: []
+
+"^foo-dev-bar\\d+\\..+$":
+  environment: develop
+  parameters:  { guild: foo-dev }
+  classes: [ 'roles::foo::bar' ]
+
+"^foo-prod-bar\\d+\\..+$":
+  environment: production
+  parameters:  { guild: foo-prod }
+  classes: [ 'roles::foo::bar' ]
