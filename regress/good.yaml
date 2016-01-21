@@ -7,5 +7,5 @@ classes_only:
 environment_only:
   environment: environment
 
-"^xyzzy$":
+'^xyzzy$':
  environment: xyzzy
