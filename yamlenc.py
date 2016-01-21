@@ -48,6 +48,7 @@ class YamlENC(object):
 
         for yamldoc in encdata:
             for node_re_str, node_attrs in yamldoc.items():
+                node_validate(node_re_str, node_attrs)
                 if node_re_str == DEFAULT_NAME:
                     self.default_attrs = node_attrs
                 else:
@@ -66,18 +67,17 @@ class YamlENC(object):
         """Look up ENC by nodename"""
         for node in self.nodes:
             if node['re'].match(nodename):
-                node_validate(node['re'], node['attrs'])
                 return node['attrs']
         return self.default_attrs
 
 
-def node_validate(node_re, node_attrs):
+def node_validate(node_re_str, node_attrs):
     """Validate node attributes"""
     if 'environment' in node_attrs or 'classes' in node_attrs:
         return
     else:
         raise Exception("Missing mandatory attribute for node '%s'"
-                        % node_re.pattern)
+                        % node_re_str)
 
 
 if __name__ == "__main__":
