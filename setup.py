@@ -33,4 +33,9 @@ puppet master to perform external node classification for a calling node.
         'setuptools',
         'yaml',
     ],
+    entry_points={
+        'console_scripts': [
+            'yamlenc = yamlenc.yamlenc:main',
+        ]
+    }
 )
