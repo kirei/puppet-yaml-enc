@@ -79,35 +79,37 @@ def node_validate(node_re_str, node_attrs):
         raise Exception("Missing mandatory attribute for node '%s'"
                         % node_re_str)
 
+def main():
+    """ Main function """
+    parser = argparse.ArgumentParser(description='Puppet YAML ENC')
 
-if __name__ == "__main__":
-
-    PARSER = argparse.ArgumentParser(description='Puppet YAML ENC')
-
-    PARSER.add_argument('nodename', metavar='nodename', nargs=1,
+    parser.add_argument('nodename', metavar='nodename', nargs=1,
                         help='nodename')
 
-    PARSER.add_argument("--conf", metavar='filename',
+    parser.add_argument("--conf", metavar='filename',
                         help='configuration file')
-    PARSER.set_defaults(conf=DEFAULT_CONF)
+    parser.set_defaults(conf=DEFAULT_CONF)
 
-    PARSER.add_argument("--debug", action='store_true')
-    PARSER.set_defaults(debug=False)
+    parser.add_argument("--debug", action='store_true')
+    parser.set_defaults(debug=False)
 
-    ARGS = vars(PARSER.parse_args())
-    DEBUG = ARGS['debug']
-    CONF = ARGS['conf']
+    args = vars(parser.parse_args())
+    debug = args['debug']
+    conf = args['conf']
 
     try:
-        if DEBUG:
-            print >> sys.stderr, "Using configuration file %s" % CONF
-        ENC = YamlENC(CONF)
+        if debug:
+            print >> sys.stderr, "Using configuration file %s" % conf
+        enc = YamlENC(conf)
     except IOError:
-        print >> sys.stderr, "Failed to parse configuration file %s" % CONF
+        print >> sys.stderr, "Failed to parse configuration file %s" % conf
         sys.exit(1)
 
-    NODENAME = ARGS['nodename'][0]
-    DATA = ENC.lookup(NODENAME)
+    nodename = args['nodename'][0]
+    data = enc.lookup(nodename)
 
-    if DATA:
-        print yaml.dump(DATA)
+    if data:
+        print yaml.dump(data)
+
+if __name__ == "__main__":
+    main()
