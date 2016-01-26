@@ -31,7 +31,7 @@ puppet master to perform external node classification for a calling node.
     license='BSD',
     install_requires=[
         'setuptools',
-        'yaml',
+        'PyYAML',
     ],
     entry_points={
         'console_scripts': [
