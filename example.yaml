@@ -12,3 +12,8 @@ DEFAULT:
   environment: production
   parameters:  { guild: foo-prod }
   classes: [ 'roles::foo::bar' ]
+
+hostname.example.com:
+  environment: production
+  parameters:  { guild: example }
+  classes: [ 'roles::example' ]

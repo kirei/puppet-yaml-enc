@@ -65,9 +65,17 @@ class YamlENC(object):
 
     def lookup(self, nodename):
         """Look up ENC by nodename"""
+
+        # try exact match
+        if nodename in self.nodes:
+            return self.nodes[nodename]['attrs']
+
+        # try RE match
         for node in self.nodes:
             if node['re'].match(nodename):
                 return node['attrs']
+
+        # resort to default attributes
         return self.default_attrs
 
 
