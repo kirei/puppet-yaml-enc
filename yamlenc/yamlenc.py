@@ -40,7 +40,8 @@ class YamlENC(object):
     """Simple YAML-based Puppet ENC"""
 
     def __init__(self, filename):
-        self.nodes = []
+        self.nodes_re = []
+        self.nodes_exact = {}
         self.default_attrs = {}
 
         encstream = open(filename, "r")
@@ -57,7 +58,8 @@ class YamlENC(object):
                     except re.error:
                         raise Exception("Failed to compile RE: %s"
                                         % node_re_str)
-                    self.nodes.append({'re': node_re, 'attrs': node_attrs})
+                    self.nodes_re.append({'re': node_re, 'attrs': node_attrs})
+                    self.nodes_exact[node_re_str] = {'attrs': node_attrs }
 
     def default(self):
         """Return default attributes"""
@@ -67,11 +69,11 @@ class YamlENC(object):
         """Look up ENC by nodename"""
 
         # try exact match
-        if nodename in self.nodes:
-            return self.nodes[nodename]['attrs']
+        if nodename in self.nodes_exact:
+            return self.nodes_exact[nodename]['attrs']
 
         # try RE match
-        for node in self.nodes:
+        for node in self.nodes_re:
             if node['re'].match(nodename):
                 return node['attrs']
 
