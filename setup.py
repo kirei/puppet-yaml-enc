@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='yamlenc',
-    version='0.2',
+    version='0.3',
     description='Simple YAML-based Regular Expression Puppet ENC',
     author='IPnett AS',
     author_email='info@cloud.ipnett.com',
