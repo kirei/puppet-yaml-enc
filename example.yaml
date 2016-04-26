@@ -13,7 +13,12 @@ DEFAULT:
   parameters:  { guild: foo-prod }
   classes: [ 'roles::foo::bar' ]
 
+'^hostname.example.com$':
+  environment: production
+  parameters:  { guild: example-re }
+  classes: [ 'roles::example' ]
+
 hostname.example.com:
   environment: production
-  parameters:  { guild: example }
+  parameters:  { guild: example-exact }
   classes: [ 'roles::example' ]
