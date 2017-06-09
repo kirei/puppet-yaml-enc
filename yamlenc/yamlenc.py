@@ -27,6 +27,7 @@
 
 """YAML-based Puppet ENC (External Node Classifier)"""
 
+from __future__ import print_function
 import sys
 import re
 import argparse
@@ -86,8 +87,7 @@ def node_validate(node_re_str, node_attrs):
     if 'environment' in node_attrs or 'classes' in node_attrs:
         return
     else:
-        raise Exception("Missing mandatory attribute for node '%s'"
-                        % node_re_str)
+        raise Exception("Missing mandatory attribute for node '{}'".format(node_re_str))
 
 def main():
     """ Main function """
@@ -109,17 +109,17 @@ def main():
 
     try:
         if debug:
-            print >> sys.stderr, "Using configuration file %s" % conf
+            print("Using configuration file {}".format(conf), file=sys.stderr)
         enc = YamlENC(conf)
     except IOError:
-        print >> sys.stderr, "Failed to parse configuration file %s" % conf
+        print("Failed to parse configuration file {}".format(conf), file=sys.stderr)
         sys.exit(1)
 
     nodename = args['nodename'][0]
     data = enc.lookup(nodename)
 
     if data:
-        print yaml.dump(data)
+        print(yaml.dump(data))
 
 if __name__ == "__main__":
     main()

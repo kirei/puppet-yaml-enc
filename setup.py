@@ -4,11 +4,11 @@ from setuptools import setup
 
 setup(
     name='yamlenc',
-    version='0.4',
+    version='0.5',
     description='Simple YAML-based Regular Expression Puppet ENC',
-    author='IPnett AS',
-    author_email='info@cloud.ipnett.com',
-    url='https://github.com/IPnett/puppet-yaml-enc',
+    author='Safespring AB',
+    author_email='info@safespring.com',
+    url='https://github.com/safespring/puppet-yaml-enc',
     packages=['yamlenc'],
     long_description="""\
 yamlenc is a simple YAML-based Regular Expression Puppet ENC
