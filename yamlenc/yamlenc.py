@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Copyright (c) 2016, IPnett AS
 # All rights reserved.
@@ -59,7 +59,7 @@ class YamlENC(object):
                         raise Exception("Failed to compile RE: %s"
                                         % node_re_str)
                     self.nodes_re.append({'re': node_re, 'attrs': node_attrs})
-                    self.nodes_exact[node_re_str] = {'attrs': node_attrs }
+                    self.nodes_exact[node_re_str] = {'attrs': node_attrs}
 
     def default(self):
         """Return default attributes"""
@@ -89,8 +89,10 @@ def node_validate(node_re_str, node_attrs):
         raise Exception("Missing mandatory attribute for node '%s'"
                         % node_re_str)
 
+
 def main():
     """ Main function """
+
     parser = argparse.ArgumentParser(description='Puppet YAML ENC')
 
     parser.add_argument('nodename', metavar='nodename', nargs=1,
@@ -119,7 +121,8 @@ def main():
     data = enc.lookup(nodename)
 
     if data:
-        print yaml.dump(data)
+        print(yaml.dump(data))
+
 
 if __name__ == "__main__":
     main()

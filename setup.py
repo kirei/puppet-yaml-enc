@@ -27,8 +27,7 @@ puppet master to perform external node classification for a calling node.
         "Intended Audience :: System Administrators",
         "Topic :: System :: Systems Administration",
     ],
-    keywords='yaml puppet external node classifier enc regular expression'\
-             'regex re',
+    keywords='yaml puppet external node classifier enc regular expression regex re',
     license='BSD',
     install_requires=[
         'setuptools',
