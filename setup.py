@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """ setup.py for yamlenc - a simple YAML-based Regular Expression Puppet ENC """
 from setuptools import setup
+
 from yamlenc import __version__
 
 setup(

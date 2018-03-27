@@ -27,9 +27,10 @@
 
 """YAML-based Puppet ENC (External Node Classifier)"""
 
-import sys
-import re
 import argparse
+import re
+import sys
+
 import yaml
 
 DEFAULT_CONF = '/etc/puppet/enc.yaml'
