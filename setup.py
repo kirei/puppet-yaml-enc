@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 """ setup.py for yamlenc - a simple YAML-based Regular Expression Puppet ENC """
 from setuptools import setup
+from yamlenc import __version__
 
 setup(
     name='yamlenc',
-    version='0.4',
+    version=__version__,
     description='Simple YAML-based Regular Expression Puppet ENC',
-    author='IPnett AS',
-    author_email='info@cloud.ipnett.com',
-    url='https://github.com/IPnett/puppet-yaml-enc',
+    author='Jakob Schlyter',
+    author_email='jakob@kirei.se',
+    url='https://github.com/kirei/puppet-yaml-enc',
     packages=['yamlenc'],
     long_description="""\
 yamlenc is a simple YAML-based Regular Expression Puppet ENC
