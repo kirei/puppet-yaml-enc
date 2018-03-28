@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 #
 # Copyright (c) 2016, IPnett AS
 # All rights reserved.
@@ -40,13 +40,10 @@ DEFAULT_NAME = 'DEFAULT'
 class YamlENC(object):
     """Simple YAML-based Puppet ENC"""
 
-    def __init__(self, filename):
+    def __init__(self, encdata):
         self.nodes_re = []
         self.nodes_exact = {}
         self.default_attrs = {}
-
-        encstream = open(filename, "r")
-        encdata = yaml.load_all(encstream)
 
         for yamldoc in encdata:
             for node_re_str, node_attrs in yamldoc.items():
@@ -87,7 +84,7 @@ def node_validate(node_re_str, node_attrs):
     if 'environment' in node_attrs or 'classes' in node_attrs:
         return
     else:
-        raise Exception("Missing mandatory attribute for node '%s'"
+        raise ValueError("Missing mandatory attribute for node '%s'"
                         % node_re_str)
 
 
@@ -107,13 +104,12 @@ def main():
     parser.set_defaults(debug=False)
 
     args = vars(parser.parse_args())
-    debug = args['debug']
-    conf = args['conf']
 
     try:
-        if debug:
+        if args['debug']:
             print >> sys.stderr, "Using configuration file %s" % conf
-        enc = YamlENC(conf)
+        encstream = open(args['conf'], "r")
+        enc = YamlENC(yaml.load_all(encstream))
     except IOError:
         print >> sys.stderr, "Failed to parse configuration file %s" % conf
         sys.exit(1)
