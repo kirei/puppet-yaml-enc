@@ -1,4 +1,3 @@
-mypy
 pylama
 pytest
 pyyaml
