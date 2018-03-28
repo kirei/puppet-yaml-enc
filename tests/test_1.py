@@ -17,10 +17,13 @@ CONFIG_MISSING = {
 }
 
 
-_ = YamlENC([CONFIG_GOOD])
+def test_good():
+    _ = YamlENC([CONFIG_GOOD])
 
-with pytest.raises(Exception):
-    _ = YamlENC([CONFIG_BAD])
+def test_bad():
+    with pytest.raises(Exception):
+        _ = YamlENC([CONFIG_BAD])
 
-with pytest.raises(ValueError):
-    _ = YamlENC([CONFIG_MISSING])
+def test_missing():
+    with pytest.raises(ValueError):
+        _ = YamlENC([CONFIG_MISSING])
