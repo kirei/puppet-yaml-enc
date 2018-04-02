@@ -22,8 +22,11 @@ puppet master to perform external node classification for a calling node.
 """,
     classifiers=[
         "License :: OSI Approved :: BSD License",
-        "Programming Language :: Python",
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Environment :: Console",
         "Intended Audience :: System Administrators",
         "Topic :: System :: Systems Administration",
