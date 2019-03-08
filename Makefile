@@ -1,8 +1,6 @@
-SCRIPT=	yamlenc.py
+SCRIPT=	yamlenc/yamlenc.py
 
-lint:
-	pep8 --max-line-length=80 $(SCRIPT)
-	pylint --reports=no $(SCRIPT)
+all:
 
 regress::
 	-python $(SCRIPT) --conf regress/bad-re.yaml --debug regress
