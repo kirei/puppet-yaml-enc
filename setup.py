@@ -27,6 +27,7 @@ puppet master to perform external node classification for a calling node.
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Environment :: Console",
         "Intended Audience :: System Administrators",
         "Topic :: System :: Systems Administration",
