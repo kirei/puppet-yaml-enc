@@ -28,6 +28,7 @@
 """YAML-based Puppet ENC (External Node Classifier)"""
 
 import argparse
+import logging
 import re
 import sys
 
@@ -40,7 +41,7 @@ DEFAULT_NAME = 'DEFAULT'
 class YamlENC(object):
     """Simple YAML-based Puppet ENC"""
 
-    def __init__(self, encdata):
+    def __init__(self, encdata: dict):
         self.nodes_re = []
         self.nodes_exact = {}
         self.default_attrs = {}
@@ -54,8 +55,7 @@ class YamlENC(object):
                     try:
                         node_re = re.compile(node_re_str)
                     except re.error:
-                        raise Exception("Failed to compile RE: %s"
-                                        % node_re_str)
+                        raise Exception("Failed to compile RE: " + node_re_str)
                     self.nodes_re.append({'re': node_re, 'attrs': node_attrs})
                     self.nodes_exact[node_re_str] = {'attrs': node_attrs}
 
@@ -63,7 +63,7 @@ class YamlENC(object):
         """Return default attributes"""
         return self.default_attrs
 
-    def lookup(self, nodename):
+    def lookup(self, nodename: str):
         """Look up ENC by nodename"""
 
         # try exact match
@@ -79,13 +79,12 @@ class YamlENC(object):
         return self.default_attrs
 
 
-def node_validate(node_re_str, node_attrs):
+def node_validate(node_re_str: str, node_attrs: dict):
     """Validate node attributes"""
     if 'environment' in node_attrs or 'classes' in node_attrs:
         return
     else:
-        raise ValueError("Missing mandatory attribute for node '%s'"
-                        % node_re_str)
+        raise ValueError("Missing mandatory attribute for node " + node_re_str)
 
 
 def main():
@@ -93,31 +92,35 @@ def main():
 
     parser = argparse.ArgumentParser(description='Puppet YAML ENC')
 
-    parser.add_argument('nodename', metavar='nodename', nargs=1,
+    parser.add_argument('nodename',
+                        metavar='nodename',
+                        nargs=1,
                         help='nodename')
-
-    parser.add_argument("--conf", metavar='filename',
+    parser.add_argument("--conf",
+                        dest='conf',
+                        metavar='filename',
+                        default=DEFAULT_CONF,
                         help='configuration file')
-    parser.set_defaults(conf=DEFAULT_CONF)
+    parser.add_argument("--debug",
+                        dest='debug',
+                        action='store_true',
+                        help="Enable debugging")
 
-    parser.add_argument("--debug", action='store_true')
-    parser.set_defaults(debug=False)
+    args = parser.parse_args()
 
-    args = vars(parser.parse_args())
+    if args.debug:
+        logging.basicConfig(level=logging.DEBUG)
 
     try:
-        if args['debug']:
-            print >> sys.stderr, "Using configuration file %s" % conf
-        encstream = open(args['conf'], "r")
-        enc = YamlENC(yaml.load_all(encstream))
+        logging.debug("Using configuration file %s", args.conf)
+        with open(args.conf, "r") as encstream:
+            enc = YamlENC(yaml.load_all(encstream))
     except IOError:
-        print >> sys.stderr, "Failed to parse configuration file %s" % conf
+        logging.error("Failed to parse configuration file %s", args.conf)
         sys.exit(1)
 
-    nodename = args['nodename'][0]
-    data = enc.lookup(nodename)
-
-    if data:
+    data = enc.lookup(args.nodename[0])
+    if data is not None:
         print(yaml.dump(data))
 
 
